@@ -11,15 +11,21 @@ Insert inside App.vue
 </page-transition>
 ```
 
-## NaviagationBar.vue
-Insert inside App.vue
+## LanguageChart.vue 
+### still in progress
+Language chart to display the percentage of languages used in the project by making requests to GitHub API repo with axios.
+
+First, install Axios
+```
+npm install --save axios
+```
+
+Add it to main.js
 
 ```
-<template>
-	<div id="app">
-		<div id="navigation">
-			<NavBar />
-		</div>
-	</div>
-</template>
+import Vue from 'vue'
+import App from './App'
+import axios from 'axios'
+
+Vue.prototype.$http = axios
 ```

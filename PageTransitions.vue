@@ -1,23 +1,23 @@
 <template>
 	<transition 
-        :name="transitionType"
-        :mode="transitionMode"
-        v-on="hooks"
-        v-bind="$attrs">
+    :name="transitionType" 
+    :mode="transitionMode" 
+    v-on="hooks" 
+    v-bind="$attrs">
 		<slot></slot>
 	</transition>
 </template>
 
 <script>
 const DEFAULT_TRANSITION_TYPE = "fade";
-const DEFAULT_TRANSITION_MODE = 'out-in';
+const DEFAULT_TRANSITION_MODE = "out-in";
 
 export default {
 	name: "PageTransition",
 	data() {
 		return {
-            transitionType: DEFAULT_TRANSITION_TYPE,
-            transitionMode: DEFAULT_TRANSITION_MODE
+			transitionType: DEFAULT_TRANSITION_TYPE,
+			transitionMode: DEFAULT_TRANSITION_MODE
 		};
 	},
 	created() {
@@ -29,17 +29,17 @@ export default {
 			if (transitionType === "slide") {
 				// detect direction of route change based on path length
 				const toDepth = to.path.split("/").length;
-                const fromDepth = from.path.split("/").length;
-				transitionType = toDepth < fromDepth ? "slide-right" : "slide-left";
+				const fromDepth = from.path.split("/").length;
+				transitionType =
+					toDepth < fromDepth ? "slide-right" : "slide-left";
 
-                this.transitionType = transitionType || DEFAULT_TRANSITION_TYPE;
-
-            } else {
-                this.transitionType = DEFAULT_TRANSITION_TYPE
-            }
-            next()
+				this.transitionType = transitionType || DEFAULT_TRANSITION_TYPE;
+			} else {
+				this.transitionType = DEFAULT_TRANSITION_TYPE;
+			}
+			next();
 		});
-	},
+	}
 };
 </script>
 
