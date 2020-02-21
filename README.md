@@ -35,10 +35,10 @@ Pass the url of repository and the languages used in it to the parent data
 data() {
 	return {
 		usedLanguages: {
-						html: "HTML",
-						css: "CSS",
-						javaScript: "JavaScript",
-						shell: "Shell"
+			html: "HTML",
+			css: "CSS",
+			javaScript: "JavaScript",
+			shell: "Shell"
 		},	
 		repoUrl: "https://api.github.com/repos/<USER>/<REPOSITORY>languages",
 	}
@@ -69,7 +69,10 @@ data() {
 	etc.
 ```
 
-2) Specify languages for each parent component. Let's say you want to use HTML, JavaScript and CSS. (It is important to set the values exactly as they are named in "https://api.github.com/repos/<USER>/<REPOSITORY>languages" ).
+2) Specify languages for each parent component. Let's say you want to use HTML, JavaScript and CSS.
+It is important to set the values exactly as they are named in 
+
+``` https://api.github.com/repos/<USER>/<REPOSITORY>languages ```
 
 ```
 data() {
