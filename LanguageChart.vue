@@ -8,11 +8,11 @@
 			<span v-bind:style="shellBar" v-if="shellBar.width !== null">.</span>
 		</div>
 		<div class="language-keys">
-			<span class="vue" v-if="vueBar.width !== null"> Vue {{vueBar.width}} </span>
-			<span class="html" v-if="htmlBar.width !== null"> HTML {{htmlBar.width}} </span>
-			<span class="css" v-if="cssBar.width !== null"> CSS {{cssBar.width}} </span>
-			<span class="js" v-if="javascriptBar.width !== null"> JS {{javascriptBar.width}} </span>
-			<span class="shell" v-if="shellBar.width !== null"> Shell {{shellBar.width}} </span>
+			<span class="vue" v-if="vueBar.width !== null">vue {{vueBar.width}}</span>
+			<span class="html" v-if="htmlBar.width !== null">html {{htmlBar.width}}</span>
+			<span class="css" v-if="cssBar.width !== null">css {{cssBar.width}}</span>
+			<span class="js" v-if="javascriptBar.width !== null">javascript {{javascriptBar.width}}</span>
+			<span class="shell" v-if="shellBar.width !== null">shell {{shellBar.width}}</span>
 		</div>
 	</div>
 </template>
@@ -23,10 +23,6 @@ export default {
 	props: {
 		repoUrl: {
 			type: String,
-			required: true
-		},
-		usedLanguages: {
-			type: Object,
 			required: true
 		}
 	},
@@ -47,8 +43,8 @@ export default {
 				width: null
 			},
 			cssBar: {
-				color: "#f5ed5c",
-				backgroundColor: "#f5ed5c",
+				color: "#FFE40A",
+				backgroundColor: "#FFE40A",
 				lineHeight: "20px",
 				fontSize: "1px",
 				width: null
@@ -61,23 +57,23 @@ export default {
 				width: null
 			},
 			shellBar: {
-				color: "#424242",
-				backgroundColor: "#424242",
+				color: "#c0c0c0",
+				backgroundColor: "#c0c0c0",
 				lineHeight: "20px",
 				fontSize: "1px",
 				width: null
 			},
-			languages: null
+            languages: null,
+            usedLanguages: null
 		};
 	},
 	mounted() {
-		// make axios request
 		const axios = require("axios");
 		axios
 			.get(this.repoUrl)
-			// use arrow functions - they don't have their own "this"
 			.then(response => {
-				this.languages = response.data;
+                this.languages = response.data;
+                this.usedLanguages = Object.keys(this.languages);
 				this.updateLanguages();
 			})
 			.catch(error => {
@@ -88,11 +84,11 @@ export default {
 	methods: {
 		updateLanguages: function() {
 			let fetchedLanguages = this.languages;
-			let languagesValues = Object.values(this.usedLanguages);
+			let usedLanguages = this.usedLanguages;
 			let sum = 0;
 
-			for (let i = 0; i < languagesValues.length; i++) {
-				let item = languagesValues[i];
+			for (let i = 0; i < usedLanguages.length; i++) {
+				let item = usedLanguages[i];
 				sum += fetchedLanguages[item];
 			}
 
@@ -109,10 +105,10 @@ export default {
 				}
 			}
 
-			for (let i = 0; i < languagesValues.length; i++) {
-				let fetchedName = languagesValues[i];
-				let dataObject = `this.${fetchedName.toLowerCase()}Bar`;
-				let instance = new Language(fetchedName);
+			for (let i = 0; i < usedLanguages.length; i++) {
+				let item = usedLanguages[i];
+				let dataObject = `this.${item.toLowerCase()}Bar`;
+				let instance = new Language(item);
 				this.$set(eval(dataObject), "width", instance.percentage());
 			}
 		}
@@ -128,19 +124,18 @@ export default {
 .language-keys
 	display: flex
 	justify-content: flex-start
-	margin-top: 0.5rem
 	font-weight: 600
-	span
-		padding: 1px 10px 1px 10px
+	
+.language-keys span
+	padding: 1px 10px 1px 10px
 .html
-	background-color: $lime
+	background-color: #EAFAD4
 .vue
-	background-color: $blue2
+	background-color: #346aff
 .shell
-	background-color: $gray
+	background-color: #c0c0c0
 .js
-	background-color: $blue
+	background-color: #788DF4
 .css
-	background-color: $yellow
-
+	background-color: #FFE40A
 </style>

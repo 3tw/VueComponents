@@ -11,6 +11,18 @@ Insert inside App.vue
 </page-transition>
 ```
 
+You can determine specific transition type for the compontent inside /router/index.js with meta tag
+```
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: Home,
+    meta: {transitionType: 'fade'}
+  }
+]
+```
+
 ## LanguageChart.vue 
 ### * still in progress *
 Language chart to display the percentage of languages used in a project by making requests to GitHub API repo with axios.
@@ -30,63 +42,51 @@ import axios from 'axios'
 Vue.prototype.$http = axios
 ```
 
-Pass the url of repository and the languages used in it to the parent data 
+Setting up the chart inside a parent component is really easy. 
+All you have to do in the parent component is add a repository as "repoUrl". LanguageChart will detect the languages inside the repo and display a chart.
+
 ```
 data() {
 	return {
-		usedLanguages: {
-			html: "HTML",
-			css: "CSS",
-			javaScript: "JavaScript",
-			shell: "Shell"
-		},	
 		repoUrl: "https://api.github.com/repos/<USER>/<REPOSITORY>languages",
 	}
 }	
 ```
 
-If you wish to  display  different combinations of languages in the same projects you must:
+Depending on the languages used you might have to modify the LanguageChart.vue.
 
-1) Add all languages to the LanguageChart.vue data.
+1) Add all used languages to the LanguageChart.vue data by creating style objects with the given structure. 
+(Be Sure to set "width: null" on all objects).
+
 ```
 data() {
 	return {
-		vueBar: {
-			color: "#01FF70",
-			backgroundColor: "#01FF70",
-			lineHeight: "10px",
-			fontSize: "10px",
-			width: null
-		},
-		htmlBar: {
-			color: "#7FDBFF",
-			backgroundColor: "#7FDBFF",
-			lineHeight: "10px",
-			fontSize: "10px",
-			width: null
-		}
+        htmlBar: {
+            color: "#eafad4",
+            backgroundColor: "#eafad4",
+            lineHeight: "20px",
+            fontSize: "1px",
+            width: null
+        },
+        cssBar: {
+            color: "#FFE40A",
+            backgroundColor: "#FFE40A",
+            lineHeight: "20px",
+            fontSize: "1px",
+            width: null
+        },
+        javascriptBar: {
+            color: "#788DF4",
+            backgroundColor: "#788DF4",
+            lineHeight: "20px",
+            fontSize: "10p",
+            width: null
+        },
 	
 	etc.
 ```
 
-2) Specify languages for each parent component. Let's say you want to use HTML, JavaScript and CSS.
-It is important to set the values exactly as they are named in 
-
-``` https://api.github.com/repos/<USER>/<REPOSITORY>languages ```
-
-```
-data() {
-	return {
-		usedLanguages: {
-			html: "HTML",
-			css: "CSS",
-			javaScript: "JavaScript",
-		}
-	}
-}	
-```
-
-3) Add desired languages to the template of the LangugesChart.vue.
+2) Add all languages specified in style objects to the template of the LangugeChart.vue.
 
 ```
 <template>
