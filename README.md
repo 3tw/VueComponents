@@ -24,7 +24,6 @@ const routes = [
 ```
 
 ## LanguageChart.vue 
-### * still in progress *
 Language chart to display the percentage of languages used in a project by making requests to GitHub API repo with axios.
 
 First, install Axios
@@ -42,8 +41,8 @@ import axios from 'axios'
 Vue.prototype.$http = axios
 ```
 
-Setting up the chart inside a parent component is really easy. 
-All you have to do in the parent component is add a repository as "repoUrl". LanguageChart will detect the languages inside the repo and display a chart.
+Setting up the chart inside a parent component is quick and easy. 
+Inside the desired component add "repoUrl" linking to a desired repo. LanguageChart will detect the languages inside the repo and display a chart.
 
 ```
 data() {
